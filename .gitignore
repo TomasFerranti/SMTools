@@ -1,0 +1,6 @@
+/imagens_stereo_IMS/
+__pycache__
+
+*.ipynb
+test.py
+opencv_solution.py
