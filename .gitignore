@@ -1,6 +1,5 @@
 /imagens_stereo_IMS/
+/cab_stereo_IMS/
+/TextureExtractor/
+/trash/
 __pycache__
-
-*.ipynb
-test.py
-opencv_solution.py
