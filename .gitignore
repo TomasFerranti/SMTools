@@ -1,5 +1,5 @@
 /imagens_stereo_IMS/
-/cab_stereo_IMS/
+/processed_data/
 /TextureExtractor/
 /trash/
-__pycache__
+__pycache__/

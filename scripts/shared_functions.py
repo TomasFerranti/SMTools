@@ -17,10 +17,13 @@ def readJson(filename):
     return data
 
 
-def readImage(data, basepath="imagens_stereo_IMS/"):
-    imgPath = basepath + data['nomeImagem'] + "." + data['extensao']
-    img = cv.imread(imgPath)
+def readImage(img_calib, filepath):
+    img_path = filepath + img_calib['nomeImagem'] + "." + img_calib['extensao']
+    img = cv.imread(img_path)
+    return img
 
+
+def createImageDict(img):
     iWidth, iHeight = img.shape[1], img.shape[0]
     cWidth, cHeight = 1200, 800
     wInicio = 0
@@ -61,13 +64,22 @@ def plotEdge(p0, p1, color, ax):
     ax.plot([p0[0], p1[0]], [p0[1], p1[1]], c=color)
 
 
-def plotCalibSegs(img_dict, data):
-    img = img_dict["img_canvas"].copy()
-    fig, ax = plt.subplots(1, 1, figsize=(10, 20), dpi=80)
-    ax.imshow(img)
-    for i, c in enumerate(['r', 'g', 'b']):
-        edges = [[data['pontosguia'][i][2*j], data['pontosguia'][i][2*j + 1]]
-                 for j in range(len(data['pontosguia'][i]) // 2)]
-        for p0, p1 in edges:
-            plotEdge(p0, p1, c, ax)
+def plotCalibSegs(img_dict_list, data_list):
+    fig, axs = plt.subplots(1, len(img_dict_list), figsize=(10, 20), dpi=80)
+    for idx, ax in enumerate(axs):
+        ax.imshow(img_dict_list[idx]["img_canvas"])
+        for i, c in enumerate(['r', 'g', 'b']):
+            edges = [[data_list[idx]['pontosguia'][i][2*j], data_list[idx]['pontosguia'][i][2*j + 1]]
+                     for j in range(len(data_list[idx]['pontosguia'][i]) // 2)]
+            for p0, p1 in edges:
+                plotEdge(p0, p1, c, ax)
     plt.show()
+
+
+def getStereoFilename(filename):
+    filename_split = filename.split(sep='_')
+
+    swap = {'left': 'right', 'right': 'left'}
+    filename_split[-1] = swap[filename_split[-1]]
+
+    return '_'.join(filename_split)

@@ -3,7 +3,7 @@ import numpy as np
 import sys
 import copy
 
-from shared_functions import saveToFile, readJson, readImage, plotCalibSegs
+from shared_functions import saveToFile, readJson, readImage, createImageDict, plotCalibSegs, getStereoFilename
 
 
 def sift(img1_BGR, img2_BGR):
@@ -39,16 +39,9 @@ def sift(img1_BGR, img2_BGR):
     return pts1, pts2
 
 
-def getStereoFilename(filename):
-    filename_split = filename.split(sep='_')
-
-    swap = {'left': 'right', 'right': 'left'}
-    filename_split[-1] = swap[filename_split[-1]]
-
-    return '_'.join(filename_split)
-
-
 def edgeMatch(img1_pts_match, img2_pts_match, edge):
+    edge = edge.astype(np.float64)
+    closest_ds = np.zeros(2)
     for point_idx in range(edge.shape[0]):
         cur_point = edge[point_idx, :]
 
@@ -58,13 +51,14 @@ def edgeMatch(img1_pts_match, img2_pts_match, edge):
         distances = distances[distances[:, 0].argsort()]
 
         knn_k = min(100, distances.shape[0])
-        closest_points_indexes = distances[0:knn_k, 1]
+        closest_points_indexes = distances[0:knn_k, 1].astype(np.int64)
 
         translation_diffs = img2_pts_match[closest_points_indexes,
                                            :] - img1_pts_match[closest_points_indexes, :]
-        closest_ds = np.mean(translation_diffs, axis=0)
+        closest_ds += np.mean(translation_diffs, axis=0)
 
-        edge[point_idx, :] = edge[point_idx, :] + closest_ds
+    edge += closest_ds / 2
+    edge = np.round(edge).astype(np.int64)
     return edge
 
 
@@ -98,16 +92,22 @@ def stereoEdgesMatching(img1_data, img1_dict, img2_data, img2_dict):
 
 def main():
     filename = sys.argv[1]
-    img1_data = readJson(filename)
-    img1_dict = readImage(img1_data)
-    img2_data = copy.deepcopy(img1_data)
-    img2_data['nomeImagem'] = getStereoFilename(img1_data['nomeImagem'])
-    img2_dict = readImage(img2_data)
+    img1_calib = readJson(filename)
+    img1 = readImage(img1_calib, "processed_data/")
+    img1_dict = createImageDict(img1)
 
-    img2_data = stereoEdgesMatching(img1_data, img1_dict, img2_data, img2_dict)
+    img2_calib = copy.deepcopy(img1_calib)
+    img2_calib['nomeImagem'] = getStereoFilename(img1_calib['nomeImagem'])
+    img2 = readImage(img2_calib, "processed_data/")
+    img2_dict = createImageDict(img2)
 
-    filepath_save = "cab_stereo_IMS/" + img2_data['nomeImagem'] + ".json"
-    saveToFile(img2_data, filepath_save)
+    img2_calib = stereoEdgesMatching(
+        img1_calib, img1_dict, img2_calib, img2_dict)
+
+    plotCalibSegs([img1_dict, img2_dict], [img1_calib, img2_calib])
+
+    filepath_save = "processed_data/" + img2_calib['nomeImagem'] + ".json"
+    saveToFile(img2_calib, filepath_save)
 
 
 if __name__ == "__main__":

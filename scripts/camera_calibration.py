@@ -113,7 +113,7 @@ def main():
     filename = sys.argv[1]
     data = readJson(filename)
     data = calibrateCamera(data)
-    filepath_save = "cab_stereo_IMS/" + data['nomeImagem'] + ".json"
+    filepath_save = "processed_data/" + data['nomeImagem'] + ".json"
     saveToFile(data, filepath_save)
 
 

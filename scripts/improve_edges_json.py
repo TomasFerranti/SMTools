@@ -3,7 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 import copy
 
-from shared_functions import saveToFile, readJson, readImage
+from shared_functions import readImage, saveToFile, readJson, createImageDict
 
 
 def improveEdges(img_dict, data):
@@ -51,22 +51,23 @@ def plotImprovement(img_dict, data, data_improved):
     plt.show()
 
 
-def improveJsonEdges(data):
-    img_dict = readImage(data)
-    data_improved = improveEdges(img_dict, data)
+def improveJsonEdges(img_calib, img):
+    img_dict = createImageDict(img)
+    data_improved = improveEdges(img_dict, img_calib)
     plot = True
     if plot:
-        plotImprovement(img_dict, data, data_improved)
+        plotImprovement(img_dict, img_calib, data_improved)
 
-    return data
+    return img_calib
 
 
 def main():
     filename = sys.argv[1]
-    data = readJson(filename)
-    data = improveJsonEdges(data)
-    filepath_save = "cab_stereo_IMS/" + data['nomeImagem'] + ".json"
-    saveToFile(data, filepath_save)
+    img_calib = readJson(filename)
+    img = readImage(img_calib, 'processed_data/')
+    img_calib = improveJsonEdges(img_calib, img)
+    filepath_save = "processed_data/" + img_calib['nomeImagem'] + ".json"
+    saveToFile(img_calib, filepath_save)
 
 
 if __name__ == "__main__":

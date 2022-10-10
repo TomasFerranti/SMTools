@@ -103,12 +103,14 @@ def getStereoSplit(img):
 def main():
     filename = sys.argv[1]
     basepath = "imagens_stereo_IMS/"
+    outpath = "processed_data/"
     filepath = basepath + filename + ".jpg"
     img = cv.imread(filepath)
+
     imgL, imgR, imgM = getStereoSplit(img)
-    cv.imwrite(basepath + filename + "_left.jpg", imgL)
-    cv.imwrite(basepath + filename + "_right.jpg", imgR)
-    cv.imwrite(basepath + filename + "_middle.jpg", imgM)
+    cv.imwrite(outpath + filename + "_left.jpg", imgL)
+    cv.imwrite(outpath + filename + "_right.jpg", imgR)
+    cv.imwrite(outpath + filename + "_middle.jpg", imgM)
 
 
 if __name__ == "__main__":
