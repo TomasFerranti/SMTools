@@ -1,1 +1,21 @@
-# ResearchRice-Product2
+# SMTools
+
+Repository created to store the code made for the project Vistas Situadas do Rio de Janeiro in FGV-RJ, with collaboration between Rice University, ImagineRio and Instituto Moreira Salles.
+
+## Installing the requirements
+
+The main file of this project is "interface.py" on the root folder, where we have multiple options of Stereo Matching Tools available to employ on target stereo images. With the installation of "Python 3.8.10" and the package manager "pip", one can easily install the requirements for all the scripts with
+
+    pip install -r requirements.txt
+
+while on the root folder. 
+
+Another step before doing anything is cloning our other project called TextureExtractor, available at https://github.com/TomasFerranti/TextureExtractor, under the root folder. After that, we just need to run the script with
+
+    python3 interface.py
+
+and voilà.
+
+## How does it work?
+
+Currently there is a Bachelor Dissertation and a manual in the works to explain all the tool functionalities more detailed.
