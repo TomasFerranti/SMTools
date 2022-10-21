@@ -21,8 +21,8 @@ PATHS = {
     "TEXTURE_EXTRACTOR": "/home/tomas/Documents/FGV/ProjetoRice/ResearchRice-Product2/TextureExtractor/",
     "STEREO_IMAGES": "imagens_stereo_IMS/",
     "OUTPUT": "processed_data/",
-    "CURRENT_IMAGE": "002080BR0206.jpg",
-    "CURRENT_CALIB": "002080BR0206_left.json"
+    "CURRENT_IMAGE": "002080RJ2903.jpg",
+    "CURRENT_CALIB": "002080RJ2903_left.json"
 }
 
 
@@ -53,7 +53,7 @@ def clearScreen():
 
 def interfaceBegin(main_title_desc):
     clearScreen()
-    print("Welcome to the interface of"+main_title_desc+".\n")
+    print("Welcome to the interface of", main_title_desc, ".\n")
     option_chosen = input("\nShould we start the process? (y/n)\n")
     if option_chosen != "y":
         print("\nOkay, returning to main menu.\n")
@@ -300,6 +300,8 @@ def fullPipelineInterface():
         imgR_calib = stereoEdgesMatching(
             imgL_calib, imgL_dict, imgR_calib, imgR_dict)
         print(" done.")
+
+        plotCalibSegs([imgL_dict, imgR_dict], [imgL_calib, imgR_calib])
 
         print("Improving edges of right image...", end='')
         imgR_calib = improveJsonEdges(imgR_calib, imgR)

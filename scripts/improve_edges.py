@@ -58,7 +58,7 @@ def improveJsonEdges(img_calib, img):
     if plot:
         plotImprovement(img_dict, img_calib, data_improved)
 
-    return img_calib
+    return data_improved
 
 
 def main():
