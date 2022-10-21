@@ -10,7 +10,7 @@ import glob
 sys.path.append("scripts/")  # nopep8
 
 from shared_functions import readImage, readJson, createImageDict, getStereoFilename, plotCalibSegs
-from improve_edges_json import improveJsonEdges
+from improve_edges import improveJsonEdges
 from camera_calibration import calibrateCamera
 from stereo_matching import stereoEdgesMatching
 from split_image import getStereoSplit
