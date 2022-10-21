@@ -18,6 +18,6 @@ and voilà.
 
 ## How does it work?
 
-Currently there is a Bachelor Dissertation and a manual in the works to explain all the tool functionalities more detailed. A current fluxogram can be visualized in the figure below:
+Currently there is a Bachelor Dissertation in the works to explain all the tool functionalities more detailed. A current fluxogram can be visualized in the figure below:
 
-[Fluxogram](fluxogram.png)
+![alt text](fluxogram.png "Fluxogram of Stereo Images")
