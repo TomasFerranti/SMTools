@@ -21,3 +21,5 @@ and voilà.
 Currently there is a Bachelor Dissertation in the works to explain all the tool functionalities more detailed. A current fluxogram can be visualized in the figure below:
 
 ![alt text](fluxogram.png "Fluxogram of Stereo Images")
+
+The file "interface.py" has the option to run any .py script on a image/calibration separately, while it also has an option to run through the entire pipeline with a stereo image. There is an additional script "shared_functions.py" which has all common functions used throughout the process.
