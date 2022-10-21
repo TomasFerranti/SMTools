@@ -10,7 +10,7 @@ The main file of this project is "interface.py" on the root folder, where we hav
 
 while on the root folder. 
 
-Another step before doing anything is cloning our other project called TextureExtractor, available at https://github.com/TomasFerranti/TextureExtractor, under the root folder. After that, we just need to run the script with
+Another step before doing anything is cloning and installing the requirements of our other project called TextureExtractor, available at https://github.com/TomasFerranti/TextureExtractor, under the root folder. After that, we just need to run the script with
 
     python3 interface.py
 
