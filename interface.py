@@ -267,8 +267,8 @@ def fullPipelineInterface():
                     texture_image_path + image_base_name + "_left.jpg")
         print(" done.")
 
-        input("\nPress enter when calibration is ready at" +
-              texture_calib_path + ".\n")
+        input("\nPress enter when calibration is available at" +
+              texture_calib_path + "through TextureExtractor interface.\n")
 
         print("Reading calibration at path", calib_input_path, "...", end='')
         imgL_calib = readJson(calib_input_path)
