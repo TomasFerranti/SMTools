@@ -267,8 +267,8 @@ def fullPipelineInterface():
                     texture_image_path + image_base_name + "_left.jpg")
         print(" done.")
 
-        input("\nPress enter when calibration is available at" +
-              texture_calib_path + "through TextureExtractor interface.\n")
+        input("\nPress enter when calibration is available at " +
+              texture_calib_path + " through TextureExtractor interface.\n")
 
         print("Reading calibration at path", calib_input_path, "...", end='')
         imgL_calib = readJson(calib_input_path)
@@ -312,7 +312,7 @@ def fullPipelineInterface():
         print(" done.")
 
         print("Saving output...", end='')
-        saveOutput(PATHS['CURRENT_CALIB'], imgL_calib, "json")
+        saveOutput(imgL_calib['nomeImagem'] + ".json", imgL_calib, "json")
         saveOutput(imgR_calib['nomeImagem'] + ".json", imgR_calib, "json")
         print(" done.")
 
